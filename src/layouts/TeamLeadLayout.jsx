@@ -12,7 +12,7 @@ import Navbar from "../components/globalComponents/Navbar.jsx";
 
 import { BiSolidDashboard } from "react-icons/bi";
 import { MdOutlineAccessTimeFilled } from "react-icons/md";
-import { BsFillCalendarDateFill } from "react-icons/bs";
+import { BsCalendarDateFill } from "react-icons/bs";
 import { AiFillProject } from "react-icons/ai";
 import useSidebarStore from "../store/sidebarStore.js";
 
@@ -23,7 +23,7 @@ export default function TeamLeadLayout() {
 
   const menuItems = [
     { key: "lead/dashboard", label: "Dashboard", icon: <BiSolidDashboard className="w-5 h-5" /> },
-    { key: "lead/calender", label: "Calender", icon: <BsFillCalendarDateFill className="w-4 h-4" /> },
+    { key: "lead/calender", label: "Calender", icon: <BsCalendarDateFill className="h-[18px]" /> },
     { key: "lead/meetings", label: "My Meetings", icon: <MdOutlineAccessTimeFilled className="w-5 h-5" /> },
     { key: "lead/projects", label: "Projects", icon: <AiFillProject className="w-5 h-5" /> },
   ];
@@ -81,7 +81,9 @@ export default function TeamLeadLayout() {
         <Content style={{ marginTop: 80, padding: 16 }}>
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/calender" element={<Calender />} />
             <Route path="/meetings" element={<Meetings />} />
+            <Route path="/projects" element={<Projects />} />
             <Route path="/*" element={<NotFound />} />
           </Routes>
         </Content>

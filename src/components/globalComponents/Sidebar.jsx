@@ -20,9 +20,9 @@ export default function Sidebar({ menuItems, layoutPrefix }) {
       {/* Logo Section */}
       <div className="flex-none pt-4 flex items-center justify-center gap-3">
         {isSidebarClosed ? (
-        <Image src="src/assets/logoClosed.png" width={50} preview={false} alt="Logo" />
+        <Image src="/logoClosed.png" width={50} preview={false} alt="Logo" />
         ) : (
-        <Image src="src/assets/logo.png" width={200} preview={false} alt="Logo" />
+        <Image src="/logo.png" width={200} preview={false} alt="Logo" />
         )}
 
       </div>
@@ -53,7 +53,7 @@ export default function Sidebar({ menuItems, layoutPrefix }) {
       <div className="flex-none p-4 py-3 border-t border-blue-200">
         {
           isSidebarClosed ? (
-            <Avatar size={45} shape="square" src="src/assets/profile.jpg" />
+            <Avatar size={45} shape="square" src="/profile.jpg" />
           ) : (
         <div className="flex items-center gap-3">
           <Avatar size={40} shape="square" src="src/assets/profile.jpg" />
