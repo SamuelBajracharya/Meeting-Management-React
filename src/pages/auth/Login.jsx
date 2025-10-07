@@ -1,13 +1,34 @@
-import { Form, Input, Button, Typography } from "antd";
-import { Link } from "react-router-dom";
+import { Form, Input, Button, Typography, message } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import {useLoginUser} from "../../hooks/useAuth.js";
 
 const { Title, Text } = Typography;
 
 const Login = () => {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
+  const loginMutation = useLoginUser();
 
-  const handleLogin = (values) => {
-    console.log("Login values:", values);
+  // 🔹 Handler function for login
+  const handleLogin = async (values) => {
+    try {
+      await loginMutation.mutateAsync(values);
+      message.success("Login successful!");
+
+      // Optional: Redirect based on role stored in cookie or returned data
+      const token = document.cookie.split("; ").find((row) => row.startsWith("auth_token="))?.split("=")[1];
+      if (token) {
+        const { role } = JSON.parse(atob(token.split(".")[1])); // decode JWT payload
+        if (role === "superadmin") return navigate("/super");
+        if (role === "teamlead") return navigate("/lead");
+      }
+
+      // Default fallback
+      navigate("/");
+    } catch (error) {
+      console.error("Login failed:", error);
+      message.error(error.response?.data?.message || "Login failed. Please try again.");
+    }
   };
 
   return (
@@ -29,6 +50,7 @@ const Login = () => {
         layout="vertical"
         onFinish={handleLogin}
         className="w-full !mt-6"
+        disabled={loginMutation.isPending}
       >
         {/* Email */}
         <Form.Item
@@ -69,6 +91,7 @@ const Login = () => {
             type="primary"
             htmlType="submit"
             size="large"
+            loading={loginMutation.isPending}
             className="w-full !h-[48px] rounded-lg bg-blue-950 hover:bg-blue-700 font-medium mt-6"
           >
             Login
@@ -87,6 +110,6 @@ const Login = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Login;
